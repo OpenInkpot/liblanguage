@@ -107,35 +107,56 @@ languages_t* get_supported_languages()
         goto err;
 
     d = opendir(LOCALE_DIR);
-    if(!d)
+    if(d)
     {
-        /* FIXME: warn */
-        return langs;
-    }
-
-    for(;;)
-    {
-        errno = 0;
-        struct dirent* entry = readdir(d);
-
-        if(!entry)
+        for(;;)
         {
-            if(!errno) break;
+            errno = 0;
+            struct dirent* entry = readdir(d);
 
-            /* FIXME: warn */
-            continue;
+            if(!entry)
+            {
+                if(!errno) break;
+
+                /* FIXME: warn */
+                continue;
+            }
+
+            if(-1 == try_add_language(langs, LOCALE_DIR, entry->d_name))
+            {
+                /* FIXME: warn and continue */
+            }
         }
 
-        if(-1 == try_add_language(langs, LOCALE_DIR, entry->d_name))
+        if(-1 == closedir(d))
         {
-            /* FIXME: warn and continue */
+            d = NULL;
+            goto err;
         }
     }
 
-    if(-1 == closedir(d))
+    char* current = setlocale(LC_MESSAGES, NULL);
+    langs->current = strdup(current ? current : "");
+    if(strchr(langs->current, '.'))
+        *strchr(langs->current, '.') = '\0';
+
+    if(langs->n == 0)
     {
-        d = NULL;
-        goto err;
+        language_t* l = realloc(langs->langs, (langs->n+1) * sizeof(language_t));
+        if(!l)
+            goto err;
+
+        int nlang = langs->n;
+        langs->langs = l;
+        langs->n++;
+
+        if(!(langs->langs[nlang].locale = strdup("C")))
+            goto err;
+        if(!(langs->langs[nlang].internal_name = strdup("C")))
+            goto err;
+        if(!(langs->langs[nlang].name = strdup("English")))
+            goto err;
+        langs->langs[nlang].native_name = NULL;
     }
 
     return langs;
@@ -162,16 +183,8 @@ void free_langs(languages_t* langs)
         free((char*)langs->langs[i].native_name);
     }
 
+    free(langs->current);
     free(langs);
-}
-
-char* get_current_language()
-{
-    char* loc = setlocale(LC_MESSAGES, NULL);
-    loc = strdup(loc ? loc : "");
-    if(strchr(loc, '.'))
-        *strchr(loc, '.') = '\0';
-    return loc;
 }
 
 int set_language(const char* internal_name, bool restart_session)
