@@ -7,5 +7,5 @@ install-data-hook:
 	echo "Installing languages"
 	for l in $(LANGFILES); do \
 	  $(mkdir_p) $(DESTDIR)$(langdir); \
-	  $(INSTALL) `basename $$l` $(DESTDIR)$(langdir); \
+	  $(INSTALL_DATA) `basename $$l` $(DESTDIR)$(langdir); \
 	done

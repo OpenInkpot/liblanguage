@@ -1,5 +1,6 @@
 #include "language.h"
 
+#include <sys/stat.h>
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
@@ -93,6 +94,15 @@ int try_add_language(languages_t* langs, const char* base_dir,
     return 0;
 }
 
+int cmp_langs(const void* lhs_, const void* rhs_)
+{
+    const language_t* lhs = (const language_t*)lhs_;
+    const language_t* rhs = (const language_t*)rhs_;
+
+    return strcmp(lhs->internal_name, rhs->internal_name);
+}
+
+
 languages_t* get_supported_languages()
 {
     DIR* d = NULL;
@@ -159,6 +169,8 @@ languages_t* get_supported_languages()
         langs->langs[nlang].native_name = NULL;
     }
 
+    qsort(langs->langs, langs->n, sizeof(language_t), &cmp_langs);
+
     return langs;
 
 err:
@@ -187,11 +199,53 @@ void free_langs(languages_t* langs)
     free(langs);
 }
 
-int set_language(const char* internal_name, bool restart_session)
+static int write_lang_file(const char* locale)
 {
-    /* Update user's locale */
-    /* Kill X session */
+    char* home = getenv("HOME");
+    if(!home)
+    {
+        errno = ENOENT;
+        return -1;
+    }
 
-    errno = ENOSYS;
-    return -1;
+    char lang_file[512];
+    snprintf(lang_file, 512, "%s/.locale", home);
+
+    int fd = open(lang_file, O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR);
+    if(fd == -1)
+        return -1;
+
+    const char* envs[] = {
+        "LANG",
+        "LC_CTYPE",
+        "LC_NUMERIC",
+        "LC_TIME",
+        "LC_COLLATE",
+        "LC_MESSAGES",
+        "LC_PAPER",
+        "LC_NAME",
+        "LC_ADDRESS",
+        "LC_TELEPHONE",
+        "LC_MEASUREMENT"
+    };
+
+    int i;
+    for(i = 0; i < sizeof(envs)/sizeof(envs[0]); ++i)
+    {
+        char content[256];
+        snprintf(content, 256, "%s=%s\n", envs[i], locale);
+        lwrite(fd, content, strlen(content));
+    }
+
+    close(fd);
+    return 0;
+}
+
+int set_language(languages_t* langs, const char* internal_name)
+{
+    int i;
+    for(i = 0; i < langs->n; ++i)
+        if(!strcmp(langs->langs[i].internal_name, internal_name))
+            return write_lang_file(langs->langs[i].locale);
+    return write_lang_file(internal_name);
 }
