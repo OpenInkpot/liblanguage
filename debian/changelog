@@ -1,3 +1,11 @@
+liblanguage (0.1-2) asimov; urgency=low
+
+  * Languages now sorted
+  * Implemented setting language
+  * Fixed permisisons on language files
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sun, 17 May 2009 02:58:29 +0700
+
 liblanguage (0.1-1) asimov; urgency=low
 
   * Initial release.
