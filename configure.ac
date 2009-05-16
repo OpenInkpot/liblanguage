@@ -7,4 +7,4 @@ AM_PROG_LIBTOOL
 
 PKG_CHECK_MODULES(LOPS,[lops])
 
-AC_OUTPUT([Makefile src/Makefile language.pc])
+AC_OUTPUT([Makefile src/Makefile languages/Makefile language.pc])
