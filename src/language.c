@@ -94,6 +94,15 @@ int try_add_language(languages_t* langs, const char* base_dir,
     return 0;
 }
 
+int cmp_langs(const void* lhs_, const void* rhs_)
+{
+    const language_t* lhs = (const language_t*)lhs_;
+    const language_t* rhs = (const language_t*)rhs_;
+
+    return strcmp(lhs->internal_name, rhs->internal_name);
+}
+
+
 languages_t* get_supported_languages()
 {
     DIR* d = NULL;
@@ -159,6 +168,8 @@ languages_t* get_supported_languages()
             goto err;
         langs->langs[nlang].native_name = NULL;
     }
+
+    qsort(langs->langs, langs->n, sizeof(language_t), &cmp_langs);
 
     return langs;
 
