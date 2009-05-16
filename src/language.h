@@ -25,6 +25,6 @@ languages_t* get_supported_languages();
 
 void free_langs(languages_t* langs);
 
-int set_language(const char* internal_name, bool restart_session);
+int set_language(languages_t* langs, const char* internal_name);
 
 #endif
