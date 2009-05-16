@@ -1,8 +1,8 @@
 Source: liblanguage
 Section: core
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
-Build-Depends: debhelper (>= 7), automake, libtool, lops-dev
-XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, libtool
+Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, lops-dev
+XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, pkg-config, libtool
 XCS-Cross-Build-Depends: lops-dev
 Priority: optional
 Standards-Version: 3.8.0
