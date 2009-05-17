@@ -28,9 +28,9 @@ int fill_lang_info(language_t* lang, const char* buf)
     if(locsep)
     {
         *locsep = '\0';
-        if(!(lang->name = strdup(buf)))
+        if(!(lang->name = strdup(locsep+1)))
             return -1;
-        if(!(lang->native_name = strdup(locsep+1)))
+        if(!(lang->native_name = strdup(buf)))
             return -1;
     }
     else
