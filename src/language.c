@@ -233,7 +233,7 @@ static int write_lang_file(const char* locale)
     for(i = 0; i < sizeof(envs)/sizeof(envs[0]); ++i)
     {
         char content[256];
-        snprintf(content, 256, "%s=%s\n", envs[i], locale);
+        snprintf(content, 256, "%s=%s; export %s\n", envs[i], locale, envs[i]);
         lwrite(fd, content, strlen(content));
     }
 
