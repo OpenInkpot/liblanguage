@@ -1,3 +1,9 @@
+liblanguage (0.1-5) asimov; urgency=low
+
+  * Added 'export $env' to generated .locale file.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sun, 17 May 2009 17:30:15 +0700
+
 liblanguage (0.1-4) asimov; urgency=low
 
   * Fix name/native name parsing, they were swapped.
