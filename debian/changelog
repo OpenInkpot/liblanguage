@@ -1,3 +1,10 @@
+liblanguage (0.1-6) asimov; urgency=low
+
+  * Fixed get_suported_languages: returned 'current' value now reflects
+    actual environment, and is not always 'C' as it used to be.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 15 Jun 2009 05:15:19 +0700
+
 liblanguage (0.1-5) asimov; urgency=low
 
   * Added 'export $env' to generated .locale file.
