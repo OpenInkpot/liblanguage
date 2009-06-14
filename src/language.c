@@ -145,7 +145,7 @@ languages_t* get_supported_languages()
         }
     }
 
-    char* current = setlocale(LC_MESSAGES, NULL);
+    char* current = setlocale(LC_MESSAGES, "");
     langs->current = strdup(current ? current : "");
     if(strchr(langs->current, '.'))
         *strchr(langs->current, '.') = '\0';
