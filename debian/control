@@ -30,7 +30,6 @@ Package: liblanguage-data
 Priority: optional
 Architecture: all
 Conflicts: liblanguage-azbooka-data
-Provides: liblanguage-azbooka-data
 Description: language setup manipulation library -- data files
  This library reads system-wide list of supported languages and allows to
  manipulate user's default language.
