@@ -1,3 +1,14 @@
+liblanguage (0.2-1) asimov; urgency=low
+
+  * Added liblanguage-azbooka-data with "supported" subset of languages.
+
+  * Belarussian, Bulgarian, Catalan, Czech, German, Greek, Spanish,
+    Finnish, French, Hungarian, Italian, Japanese, Korean, Dutch, Polish,
+    Portugese, Swedish, Vietnamese, Chinese languages added
+  * Spelling fix for Ukrainian language.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 22 Aug 2009 03:57:42 +0700
+
 liblanguage (0.1-6) asimov; urgency=low
 
   * Fixed get_suported_languages: returned 'current' value now reflects
