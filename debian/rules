@@ -39,8 +39,7 @@ build-stamp: configure
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
-	dh_installdirs
+	dh_prep
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 
@@ -54,7 +53,6 @@ binary-indep: install
 	dh_fixperms -i
 	dh_installdeb -i
 	dh_gencontrol -i
-	dh_md5sums -i
 	dh_builddeb -i
 
 binary-arch: install
@@ -70,7 +68,6 @@ binary-arch: install
 	dh_installdeb -s
 	dh_shlibdeps -s
 	dh_gencontrol -s
-	dh_md5sums -s
 	dh_builddeb -s
 
 binary: binary-indep binary-arch
