@@ -29,8 +29,22 @@ Description: language setup manipulation library -- development files
 Package: liblanguage-data
 Priority: optional
 Architecture: all
+Conflicts: liblanguage-azbooka-data
+Provides: liblanguage-azbooka-data
 Description: language setup manipulation library -- data files
  This library reads system-wide list of supported languages and allows to
  manipulate user's default language.
  .
  This package contains data files required by library.
+
+Package: liblanguage-azbooka-data
+Priority: optional
+Architecture: all
+Conflicts: liblanguage-data
+Provides: liblanguage-data
+Description: language setup manipulation library -- data files
+ This library reads system-wide list of supported languages and allows to
+ manipulate user's default language.
+ .
+ This package subset data files required by library, supported by Azbooka
+ project.
