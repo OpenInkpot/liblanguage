@@ -10,7 +10,7 @@ Standards-Version: 3.8.0
 Package: liblanguage0
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, liblanguage-data
 Description: language setup manipulation library
  This library reads system-wide list of supported languages and allows to
  manipulate user's default language.
