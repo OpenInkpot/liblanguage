@@ -21,10 +21,10 @@ typedef struct
 } languages_t;
 
 /* Returns languages_t or NULL if not succesful */
-languages_t* get_supported_languages();
+languages_t* languages_get_supported();
 
-void free_langs(languages_t* langs);
+void languages_free(languages_t* langs);
 
-int set_language(languages_t* langs, const char* internal_name);
+int languages_set(languages_t* langs, const char* internal_name);
 
 #endif

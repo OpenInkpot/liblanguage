@@ -1,4 +1,4 @@
-#include "language.h"
+#include "liblanguage.h"
 
 #include <sys/stat.h>
 #include <string.h>
@@ -9,15 +9,14 @@
 #include <dirent.h>
 #include <locale.h>
 #include <stdlib.h>
-#include "lops.h"
+#include "liblops.h"
 
-/* FIXME: ? */
 #define LOCALE_DIR "/usr/share/i18n/languages"
 
 #define MAXPATH 256
 #define BUFSIZE 256
 
-int fill_lang_info(language_t* lang, const char* buf)
+static int fill_lang_info(language_t* lang, const char* buf)
 {
     char* locsep = strchr(buf, '|');
     char* eolsep = strchr(locsep ? locsep : buf, '\n');
@@ -43,8 +42,8 @@ int fill_lang_info(language_t* lang, const char* buf)
     return 0;
 }
 
-int try_add_language(languages_t* langs, const char* base_dir,
-                     const char* filename)
+static int try_add_language(languages_t* langs, const char* base_dir,
+                            const char* filename)
 {
     if(!strcmp(filename, "."))
         return 0;
@@ -63,7 +62,7 @@ int try_add_language(languages_t* langs, const char* base_dir,
         return -1;
 
     char buf[BUFSIZE+1] = ""; /* +1 for zero terminator */
-    if(-1 == lread(fd, buf, BUFSIZE))
+    if(-1 == readn(fd, buf, BUFSIZE))
     {
         close(fd);
         return -1;
@@ -94,7 +93,7 @@ int try_add_language(languages_t* langs, const char* base_dir,
     return 0;
 }
 
-int cmp_langs(const void* lhs_, const void* rhs_)
+static int cmp_langs(const void* lhs_, const void* rhs_)
 {
     const language_t* lhs = (const language_t*)lhs_;
     const language_t* rhs = (const language_t*)rhs_;
@@ -103,7 +102,7 @@ int cmp_langs(const void* lhs_, const void* rhs_)
 }
 
 
-languages_t* get_supported_languages()
+languages_t* languages_get_supported()
 {
     DIR* d = NULL;
     languages_t* langs = malloc(sizeof(languages_t));
@@ -177,11 +176,11 @@ err:
     if(d)
         closedir(d);
 
-    free_langs(langs);
+    languages_free(langs);
     return NULL;
 }
 
-void free_langs(languages_t* langs)
+void languages_free(languages_t* langs)
 {
     if(!langs)
         return;
@@ -234,14 +233,14 @@ static int write_lang_file(const char* locale)
     {
         char content[256];
         snprintf(content, 256, "%s=%s; export %s\n", envs[i], locale, envs[i]);
-        lwrite(fd, content, strlen(content));
+        writen(fd, content, strlen(content));
     }
 
     close(fd);
     return 0;
 }
 
-int set_language(languages_t* langs, const char* internal_name)
+int languages_set(languages_t* langs, const char* internal_name)
 {
     int i;
     for(i = 0; i < langs->n; ++i)

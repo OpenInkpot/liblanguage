@@ -1,13 +1,13 @@
 Source: liblanguage
 Section: core
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, lops-dev
+Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, liblops-dev
 XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, pkg-config, libtool
-XCS-Cross-Build-Depends: lops-dev
+XCS-Cross-Build-Depends: liblops-dev
 Priority: optional
 Standards-Version: 3.8.0
 
-Package: liblanguage0
+Package: liblanguage1
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, liblanguage-data
@@ -19,7 +19,7 @@ Package: liblanguage-dev
 Section: libdevel
 Priority: optional
 Architecture: any
-Depends: liblanguage0 (= ${binary:Version})
+Depends: liblanguage1 (= ${binary:Version})
 Description: language setup manipulation library -- development files
  This library reads system-wide list of supported languages and allows to
  manipulate user's default language.

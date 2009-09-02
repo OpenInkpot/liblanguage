@@ -1,3 +1,3 @@
-usr/include/language.h
+usr/include/liblanguage.h
 usr/lib/liblanguage.so
-usr/lib/pkgconfig/language.pc
+usr/lib/pkgconfig/liblanguage.pc
