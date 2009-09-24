@@ -7,7 +7,7 @@ config.sub
 configure
 depcomp
 .deps
-language.pc
+liblanguage.pc
 install-sh
 *.la
 .libs
