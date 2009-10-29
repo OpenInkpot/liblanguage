@@ -1,3 +1,9 @@
+liblanguage (0.2-5) asimov; urgency=low
+
+  * Add Latvian language info.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 30 Oct 2009 05:27:00 +0600
+
 liblanguage (0.2-4) asimov; urgency=low
 
   * Only install languages which have translations (OI#510).
