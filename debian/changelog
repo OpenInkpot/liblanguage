@@ -1,3 +1,9 @@
+liblanguage (0.2-6) asimov; urgency=low
+
+  * Fix small memory leak on languages_t* deinitialization.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Wed, 11 Nov 2009 05:19:00 +0600
+
 liblanguage (0.2-5) asimov; urgency=low
 
   * Add Latvian language info.
