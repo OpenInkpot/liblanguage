@@ -195,6 +195,7 @@ void languages_free(languages_t* langs)
     }
 
     free(langs->current);
+    free(langs->langs);
     free(langs);
 }
 
