@@ -23,10 +23,10 @@
 #include <stdbool.h>
 
 typedef struct {
-    const char *internal_name; /* E.g. ru_RU */
-    const char *locale; /* E.g. ru_RU.UTF-8 */
-    const char *name; /* E.g. Russian */
-    const char *native_name; /* E.g. Русский, may be NULL */
+    const char *internal_name;  /* E.g. ru_RU */
+    const char *locale;         /* E.g. ru_RU.UTF-8 */
+    const char *name;           /* E.g. Russian */
+    const char *native_name;    /* E.g. Русский, may be NULL */
 } language_t;
 
 typedef struct {
@@ -38,13 +38,12 @@ typedef struct {
 } languages_t;
 
 /* Returns languages_t or NULL if not succesful */
-languages_t *
-languages_get_supported();
+languages_t *languages_get_supported();
 
 void
-languages_free(languages_t *langs);
+languages_free(languages_t * langs);
 
 int
-languages_set(languages_t *langs, const char *internal_name);
+languages_set(languages_t * langs, const char *internal_name);
 
 #endif

@@ -36,7 +36,7 @@
 #define BUFSIZE 256
 
 static int
-fill_lang_info(language_t *lang, const char *buf)
+fill_lang_info(language_t * lang, const char *buf)
 {
     char *locsep = strchr(buf, '|');
     char *eolsep = strchr(locsep ? locsep : buf, '\n');
@@ -46,7 +46,7 @@ fill_lang_info(language_t *lang, const char *buf)
 
     if (locsep) {
         *locsep = '\0';
-        if (!(lang->name = strdup(locsep+1)))
+        if (!(lang->name = strdup(locsep + 1)))
             return -1;
         if (!(lang->native_name = strdup(buf)))
             return -1;
@@ -60,7 +60,8 @@ fill_lang_info(language_t *lang, const char *buf)
 }
 
 static int
-try_add_language(languages_t *langs, const char *base_dir, const char *filename)
+try_add_language(languages_t * langs, const char *base_dir,
+                 const char *filename)
 {
     if (!strcmp(filename, "."))
         return 0;
@@ -77,7 +78,7 @@ try_add_language(languages_t *langs, const char *base_dir, const char *filename)
     if (fd == -1)
         return -1;
 
-    char buf[BUFSIZE+1] = ""; /* +1 for zero terminator */
+    char buf[BUFSIZE + 1] = ""; /* +1 for zero terminator */
     if (-1 == readn(fd, buf, BUFSIZE)) {
         close(fd);
         return -1;
@@ -88,7 +89,8 @@ try_add_language(languages_t *langs, const char *base_dir, const char *filename)
 
     int nlang = langs->n;
 
-    language_t *l = realloc(langs->langs, (langs->n+1) * sizeof(language_t));
+    language_t *l =
+        realloc(langs->langs, (langs->n + 1) * sizeof(language_t));
     if (!l)
         return -1;
     langs->langs = l;
@@ -103,7 +105,7 @@ try_add_language(languages_t *langs, const char *base_dir, const char *filename)
     if (dotpos)
         *dotpos = '\0';
 
-    fill_lang_info(langs->langs+nlang, buf);
+    fill_lang_info(langs->langs + nlang, buf);
 
     return 0;
 }
@@ -111,8 +113,8 @@ try_add_language(languages_t *langs, const char *base_dir, const char *filename)
 static int
 cmp_langs(const void *lhs_, const void *rhs_)
 {
-    const language_t *lhs = (const language_t *)lhs_;
-    const language_t *rhs = (const language_t *)rhs_;
+    const language_t *lhs = (const language_t *) lhs_;
+    const language_t *rhs = (const language_t *) rhs_;
 
     return strcmp(lhs->internal_name, rhs->internal_name);
 }
@@ -139,7 +141,8 @@ languages_get_supported()
             struct dirent *entry = readdir(d);
 
             if (!entry) {
-                if (!errno) break;
+                if (!errno)
+                    break;
 
                 /* FIXME: warn */
                 continue;
@@ -162,7 +165,8 @@ languages_get_supported()
         *strchr(langs->current, '.') = '\0';
 
     if (langs->n == 0) {
-        language_t *l = realloc(langs->langs, (langs->n+1) * sizeof(language_t));
+        language_t *l =
+            realloc(langs->langs, (langs->n + 1) * sizeof(language_t));
         if (!l)
             goto err;
 
@@ -183,7 +187,7 @@ languages_get_supported()
 
     return langs;
 
-err:
+  err:
     if (d)
         closedir(d);
 
@@ -192,17 +196,17 @@ err:
 }
 
 void
-languages_free(languages_t *langs)
+languages_free(languages_t * langs)
 {
     if (!langs)
         return;
 
     int i;
     for (i = 0; i < langs->n; ++i) {
-        free((char *)langs->langs[i].internal_name);
-        free((char *)langs->langs[i].locale);
-        free((char *)langs->langs[i].name);
-        free((char *)langs->langs[i].native_name);
+        free((char *) langs->langs[i].internal_name);
+        free((char *) langs->langs[i].locale);
+        free((char *) langs->langs[i].name);
+        free((char *) langs->langs[i].native_name);
     }
 
     free(langs->current);
@@ -222,7 +226,8 @@ write_lang_file(const char *locale)
     char lang_file[512];
     snprintf(lang_file, 512, "%s/.locale", home);
 
-    int fd = open(lang_file, O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR);
+    int fd =
+        open(lang_file, O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR);
     if (fd == -1)
         return -1;
 
@@ -241,9 +246,10 @@ write_lang_file(const char *locale)
     };
 
     int i;
-    for (i = 0; i < sizeof(envs)/sizeof(envs[0]); ++i) {
+    for (i = 0; i < sizeof(envs) / sizeof(envs[0]); ++i) {
         char content[256];
-        snprintf(content, 256, "%s=%s; export %s\n", envs[i], locale, envs[i]);
+        snprintf(content, 256, "%s=%s; export %s\n", envs[i], locale,
+                 envs[i]);
         writen(fd, content, strlen(content));
     }
 
@@ -252,7 +258,7 @@ write_lang_file(const char *locale)
 }
 
 int
-languages_set(languages_t *langs, const char *internal_name)
+languages_set(languages_t * langs, const char *internal_name)
 {
     int i;
     for (i = 0; i < langs->n; ++i)
