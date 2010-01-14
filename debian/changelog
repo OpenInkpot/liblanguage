@@ -1,3 +1,10 @@
+liblanguage (0.2.7) UNRELEASED; urgency=low
+
+  * Coding style fixed
+  * Copyright info updated
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 14 Jan 2010 13:07:58 +0600
+
 liblanguage (0.2-6) asimov; urgency=low
 
   * Fix small memory leak on languages_t* deinitialization.
