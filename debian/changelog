@@ -1,7 +1,8 @@
-liblanguage (0.2.7) UNRELEASED; urgency=low
+liblanguage (0.2.7) zelazny; urgency=low
 
   * Coding style fixed
   * Copyright info updated
+  * Turkish added (OI#817)
 
  -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 14 Jan 2010 13:07:58 +0600
 
