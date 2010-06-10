@@ -1,3 +1,10 @@
+liblanguage (0.2.8) zelazny; urgency=low
+
+  * Add Japanese (OI#800).
+  * Add Turkish, for real this time (OI#817).
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 11 Jun 2010 03:38:42 +0700
+
 liblanguage (0.2.7) zelazny; urgency=low
 
   * Coding style fixed
