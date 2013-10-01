@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include "liblops.h"
 
-#define LOCALE_DIR "/usr/share/i18n/languages"
+#define LOCALE_DIR DATADIR "/i18n/languages"
 
 #define MAXPATH 256
 #define BUFSIZE 256
